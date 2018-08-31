@@ -6,6 +6,6 @@ import App from './app';
 
 ReactDOM.render(
     <App />
-    , document.querySelector('.container'));
+    , document.querySelector('#react-app'));
 
 
