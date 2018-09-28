@@ -4,6 +4,7 @@ import ReduxPromise from 'redux-promise';
 import {Provider} from 'react-redux';
 import reducers from './reducers';
 import SearchBar from './containers/search-bar';
+import WeatherList from './containers/weather-list';
 import { withStyles } from '@material-ui/core/styles';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
@@ -22,6 +23,7 @@ class WeatherApp extends Component {
             <Provider store={createStoreWithMiddleware(reducers)}>
                 <div className={classes.root}>
                     <SearchBar />
+                    <WeatherList />
                 </div>
             </Provider>
         );

@@ -6,11 +6,15 @@ import VideoApp from './Youtube/video-app';
 import BookApp from './Library/book-app';
 import WeatherApp from './Weather/weather-app';
 import testApp from './testFRED/testApp';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Router, Route, Link } from "react-router-dom";
 import AppBar from '@material-ui/core/AppBar/AppBar';
 import Button from '@material-ui/core/Button/Button';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar/Toolbar';
+import '../style/style.css';
+import {Switch} from 'react-router';
+import createBrowserHistory from 'history/createBrowserHistory'
+
 const theme = createMuiTheme({
     palette: {
         primary: {
@@ -27,6 +31,8 @@ const theme = createMuiTheme({
         },
     },
 });
+
+const history = createBrowserHistory()
 
 const styles = theme => ({
     layout: {
@@ -48,7 +54,7 @@ class App extends Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <CssBaseline />
-                <Router>
+                <Router history={history}>
                     <div>
                         <AppBar position="static">
                             <Toolbar>
@@ -65,16 +71,18 @@ class App extends Component {
                                     <Button color="inherit">Weather</Button>
                                 </Link>
                                 <Link to="/test">
-                                    <Button color="inherit">test</Button>
+                                    <Button color="inherit">test bar</Button>
                                 </Link>
                             </Toolbar>
                         </AppBar>
                         <div className={classes.layout}>
-                            <Route exact path="/" component={Home} />
-                            <Route path="/video" component={VideoApp} />
-                            <Route path="/book" component={BookApp} />
-                            <Route path="/weather" component={WeatherApp} />
-                            <Route path="/test" component={testApp} />
+                            <Switch>
+                                <Route exact path="/" component={Home} />
+                                <Route exact path="/video" component={VideoApp} />
+                                <Route exact path="/book" component={BookApp} />
+                                <Route exact path="/weather" component={WeatherApp} />
+                                <Route exact path="/test" component={testApp} />
+                            </Switch>
                         </div>
                     </div>
                 </Router>

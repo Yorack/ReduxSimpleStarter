@@ -1,16 +1,14 @@
 import {weatherActionType} from '../actions';
 
-export default function(state = null, action) {
+export default function(state = [], action) {
 
     console.log('Action received:', action);
 
 
-    switch (action.type) {
-        case weatherActionType.FETCH_WEATHER:
-
-            return action.payload;
-        default:
-            return state;
+    if (action.type === weatherActionType.FETCH_WEATHER) {
+        if (action.payload.status === 200) {
+            return [action.payload.data, ...state];
+        }
     }
 
     return state;
