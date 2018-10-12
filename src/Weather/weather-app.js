@@ -6,6 +6,7 @@ import reducers from './reducers';
 import SearchBar from './containers/search-bar';
 import WeatherList from './containers/weather-list';
 import { withStyles } from '@material-ui/core/styles';
+import '../../style/weather.css';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 

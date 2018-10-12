@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {weatherAction} from '../actions';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import {Area, AreaChart, CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis} from 'recharts';
+import Chart from '../component/chart'
+import _ from "lodash";
 
 const styles = theme => ({
     root: {
@@ -19,6 +18,9 @@ const styles = theme => ({
     table: {
         minWidth: 700,
     },
+    th: {
+        textAlign: 'center',
+    }
 });
 
 class WeatherList extends Component {
@@ -28,43 +30,27 @@ class WeatherList extends Component {
 
         console.log(cityData);
 
-        const temperature = cityData.list.map(weather => {
+        const data = cityData.list.map(weather => {
             return {
-                temp: weather.main.temp,
+                temperature: _.round(weather.main.temp - 273.15),
                 pressure: weather.main.pressure,
                 humidity: weather.main.humidity
             }
         });
 
-        console.log(temperature);
+        console.log(data);
         return <TableRow key={id}>
             <TableCell>
                 {name}
             </TableCell>
             <TableCell>
-                <AreaChart width={300} height={150} data={temperature}>
-                    <Area type="monotone" dataKey={'temp'} stroke="#8884d8"  fill='#8884d8' />
-                    {/*<XAxis dataKey=""/>*/}
-                    <YAxis/>
-                    <Tooltip/>
-                    {/*<CartesianGrid strokeDasharray="1 1"/>*/}
-                </AreaChart>
+                <Chart data={data} dataKey={'temperature'} units={'°C'} color={'#2980b9'}/>
             </TableCell>
             <TableCell>
-                <AreaChart width={300} height={150} data={temperature}>
-                    <Area type="monotone" dataKey={'pressure'} stroke="#8884d8"  fill='#8884d8' />
-                    {/*<XAxis dataKey=""/>*/}
-                    <YAxis/>
-                    <Tooltip/>
-                </AreaChart>
+                <Chart data={data} dataKey={'pressure'} units={'hPa'} color={'#2c3e50'}/>
             </TableCell>
             <TableCell>
-                <AreaChart width={300} height={150} data={temperature}>
-                    <Area type="monotone" dataKey={'humidity'} stroke="#8884d8"  fill='#8884d8' />
-                    {/*<XAxis dataKey=""/>*/}
-                    <YAxis/>
-                    <Tooltip/>
-                </AreaChart>
+                <Chart data={data} dataKey={'humidity'} units={'%'} color={'#27ae60'}/>
             </TableCell>
         </TableRow>
     }
@@ -72,37 +58,24 @@ class WeatherList extends Component {
     render() {
         const {classes, weather} = this.props;
 
-        if (weather.length === 0 ) {
-            return <div></div>
+        if (weather.length === 0) {
+            return <div></div>;
         }
 
         return (
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
-                        <TableCell>City</TableCell>
-                        <TableCell>Temperature</TableCell>
-                        <TableCell>Pressure</TableCell>
-                        <TableCell>Humidity</TableCell>
+                        <TableCell className={classes.th}>City</TableCell>
+                        <TableCell className={classes.th}>Temperature</TableCell>
+                        <TableCell className={classes.th}>Pressure</TableCell>
+                        <TableCell className={classes.th}>Humidity</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {
                         this.props.weather.map(this.renderWeather)
                     }
-                    {/*{rows.map(row => {*/}
-                        {/*return (*/}
-                            {/*<TableRow key={row.id}>*/}
-                                {/*<TableCell component="th" scope="row">*/}
-                                    {/*{row.name}*/}
-                                {/*</TableCell>*/}
-                                {/*<TableCell numeric>{row.calories}</TableCell>*/}
-                                {/*<TableCell numeric>{row.fat}</TableCell>*/}
-                                {/*<TableCell numeric>{row.carbs}</TableCell>*/}
-                                {/*<TableCell numeric>{row.protein}</TableCell>*/}
-                            {/*</TableRow>*/}
-                        {/*);*/}
-                    {/*})}*/}
                 </TableBody>
             </Table>
         );
