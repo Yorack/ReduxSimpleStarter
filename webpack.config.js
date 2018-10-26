@@ -40,6 +40,7 @@ const configurationFRED = {
                             presets: ['@babel/preset-env', '@babel/preset-react'],
                             plugins: [
                                 'react-hot-loader/babel',
+                                '@babel/plugin-proposal-class-properties',
                             ],
                         },
                     },
@@ -50,6 +51,17 @@ const configurationFRED = {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader'],
             },
+            {
+                test: /\.(png|gif|jpe?g|svg|ico)$/,
+                exclude: /(node_modules)/,
+                include: [path.resolve(__dirname, 'img')],
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: 'images/[name]-[hash].[ext]'
+                    }
+                }
+            }
             // {
             //     test: /\.css/,
             //     exclude: /(node_modules)/,

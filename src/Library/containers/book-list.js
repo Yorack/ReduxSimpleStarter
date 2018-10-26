@@ -23,7 +23,7 @@ class BookList extends Component {
             </ul>
         );
     }
-};
+}
 
 const mapStateToProps = (state) => {
     return {

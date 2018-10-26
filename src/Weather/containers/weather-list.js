@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Chart from '../component/chart'
+import GoogleMap from './google-map'
 import _ from "lodash";
 
 const styles = theme => ({
@@ -27,6 +28,7 @@ class WeatherList extends Component {
     renderWeather(cityData) {
         const id = cityData.city.id;
         const name = cityData.city.name;
+        const { lat, lon } = cityData.city.coord;
 
         console.log(cityData);
 
@@ -42,6 +44,7 @@ class WeatherList extends Component {
         return <TableRow key={id}>
             <TableCell>
                 {name}
+                <GoogleMap lat={lat} lng={lon}/>
             </TableCell>
             <TableCell>
                 <Chart data={data} dataKey={'temperature'} units={'°C'} color={'#2980b9'}/>
@@ -80,7 +83,7 @@ class WeatherList extends Component {
             </Table>
         );
     }
-};
+}
 
 const mapStateToProps = ({weather}) => {
     return {weather};

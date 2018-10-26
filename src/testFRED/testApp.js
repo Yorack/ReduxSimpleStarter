@@ -22,6 +22,6 @@ class testApp extends Component {
             </MuiThemeProvider>
         );
     }
-};
+}
 
 export default testApp;

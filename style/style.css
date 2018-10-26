@@ -2,6 +2,10 @@ body {
     margin: 0;
 }
 
+.app-bar, .app-bar span, .app-bar a {
+    text-decoration: none !important;
+}
+
 a {
     color: inherit !important;
     text-decoration: none;

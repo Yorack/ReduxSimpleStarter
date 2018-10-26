@@ -75,7 +75,8 @@ class SearchBar extends Component {
             </form>
         );
     }
-};
+}
+
 //
 // const mapStateToProps = (state) => {
 //     return {};

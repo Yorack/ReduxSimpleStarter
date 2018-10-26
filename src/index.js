@@ -4,7 +4,7 @@ import { AppContainer } from 'react-hot-loader';
 
 import App from './app';
 
-const APPLICATION_CONTAINER_ID = document.getElementById('react-app')
+const APPLICATION_CONTAINER_ID = document.getElementById('react-app');
 
 const render = Component => {
     ReactDOM.render(
@@ -13,7 +13,7 @@ const render = Component => {
         </AppContainer>,
         APPLICATION_CONTAINER_ID
     )
-}
+};
 
 const unmountApp = () => {
     ReactDOM.unmountComponentAtNode(document.getElementById(APPLICATION_CONTAINER_ID));
