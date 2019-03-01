@@ -15,6 +15,8 @@ import createBrowserHistory from 'history/createBrowserHistory'
 import Tabs from "@material-ui/core/Tabs/Tabs";
 import Tab from "@material-ui/core/Tab/Tab";
 import NoMatch from "./noMatch";
+import MaterialsYoutube from './MaterialYoutube/MaterialsYoutube.js';
+import ThemeProvider from '@material-ui/styles/ThemeProvider.js';
 
 const theme = createMuiTheme({
     palette: {
@@ -30,6 +32,15 @@ const theme = createMuiTheme({
             dark: '#7f0000',
             contrastText: '#ffffff',
         },
+    },
+    typography: {
+        fontFamily: [
+            'Inter ui',
+            'Roboto',
+        ].join(','),
+    },
+    spacing: {
+        unit: 8,
     },
 });
 
@@ -49,7 +60,7 @@ const styles = theme => ({
     },
     menu: {
         textDecoration: 'none',
-    }
+    },
 });
 
 class App extends Component {
@@ -57,7 +68,7 @@ class App extends Component {
         super(props);
 
         this.state = {
-            value: "/",
+            value: '/',
         };
     }
 
@@ -70,33 +81,39 @@ class App extends Component {
         const {value} = this.state;
 
         return (
+            // Pour vielle version de material
             <MuiThemeProvider theme={theme}>
-                <CssBaseline/>
-                <Router history={history}>
-                    <div>
-                        <AppBar position="static" className={'app-bar'}>
-                            <Tabs value={value} onChange={this.handleChange} className={classes.menu}>
-                                <Tab label="Home" value={"/"} component={Link} to="/" />
-                                <Tab label="Video" value={"/video"} component={Link} to="/video" />
-                                <Tab label="Book" value={"/book"} component={Link} to="/book" />
-                                <Tab label="Weather" value={"/weather"} component={Link} to="/weather" />
-                                <Tab label="Blog" value={"/blog"} component={Link} to="/blog" />
-                                <Tab label="test bar" value={"/test"} component={Link} to="/test" />
-                            </Tabs>
-                        </AppBar>
-                        <div className={classes.layout}>
-                            <Switch>
-                                <Route exact path="/" component={Home}/>
-                                <Route exact path="/video" component={VideoApp}/>
-                                <Route exact path="/book" component={BookApp}/>
-                                <Route exact path="/weather" component={WeatherApp}/>
-                                <Route exact path="/blog" component={BlogApp}/>
-                                <Route exact path="/test" component={testApp}/>
-                                <Route component={NoMatch} />
-                            </Switch>
+                {/* Pour nouvelle version de material */}
+                <ThemeProvider theme={theme}>
+                    <CssBaseline/>
+                    <Router history={history}>
+                        <div>
+                            <AppBar position="static" className={'app-bar'}>
+                                <Tabs value={value} onChange={this.handleChange} className={classes.menu}>
+                                    <Tab label="Home" value={'/'} component={Link} to="/"/>
+                                    <Tab label="Video" value={'/video'} component={Link} to="/video"/>
+                                    <Tab label="Meowoutube" value={'/meowoutube'} component={Link} to="/meowoutube"/>
+                                    <Tab label="Book" value={'/book'} component={Link} to="/book"/>
+                                    <Tab label="Weather" value={'/weather'} component={Link} to="/weather"/>
+                                    <Tab label="Blog" value={'/blog'} component={Link} to="/blog"/>
+                                    <Tab label="test bar" value={'/test'} component={Link} to="/test"/>
+                                </Tabs>
+                            </AppBar>
+                            <div className={classes.layout}>
+                                <Switch>
+                                    <Route exact path="/" component={Home}/>
+                                    <Route exact path="/video" component={VideoApp}/>
+                                    <Route exact path="/meowoutube" component={MaterialsYoutube}/>
+                                    <Route exact path="/book" component={BookApp}/>
+                                    <Route exact path="/weather" component={WeatherApp}/>
+                                    <Route exact path="/blog" component={BlogApp}/>
+                                    <Route exact path="/test" component={testApp}/>
+                                    <Route component={NoMatch}/>
+                                </Switch>
+                            </div>
                         </div>
-                    </div>
-                </Router>
+                    </Router>
+                </ThemeProvider>
             </MuiThemeProvider>
         );
     }
